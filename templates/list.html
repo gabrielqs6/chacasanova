@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+
+{% block title %}Queiroz{% endblock %}
+
+{% block content %}
+<div class="min-h-screen py-6 px-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <a href="{{ url_for('home') }}" class="inline-flex items-center text-primary mb-4 hover:text-primary-dark">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Voltar
+            </a>
+            <h1 class="text-2xl md:text-3xl font-bold text-text-dark mb-3">
+                Sugestões de Presentes
+            </h1>
+            
+            <!-- Friendly intro text -->
+            <div class="bg-white rounded-2xl shadow-md p-5 mb-6 max-w-2xl mx-auto">
+                <p class="text-text-gray text-sm md:text-base leading-relaxed">
+                    Olá! Que alegria ter você aqui! Preparamos algumas <strong>sugestões</strong> de itens que nos ajudariam muito a montar nossa casa nova. Mas lembre-se: <strong>sua presença é o maior presente</strong>! Se quiser nos ajudar com algo, aqui estão algumas ideias.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Quick access and filters -->
+        <div class="mb-6 space-y-4">
+            <!-- "Já temos" button - highlighted -->
+            <div class="bg-secondary bg-opacity-20 border-2 border-secondary rounded-2xl p-4">
+                <a href="{{ url_for('items_owned') }}" class="flex items-center justify-between hover:opacity-80 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-secondary bg-opacity-40 rounded-full p-2">
+                            <span class="text-2xl">💚</span>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-semibold text-text-dark">Itens que já temos</h3>
+                            <p class="text-sm text-text-gray">Para ninguém dar presente repetido!</p>
+                        </div>
+                    </div>
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <!-- "Quero dar outra coisa" button -->
+            <div class="bg-secondary bg-opacity-20 border-2 border-secondary rounded-2xl p-4">
+                <a href="{{ url_for('color_palette') }}" class="flex items-center justify-between hover:opacity-80 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-secondary bg-opacity-40 rounded-full p-2">
+                            <span class="text-2xl">🎨</span>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-semibold text-text-dark">Quero dar outra coisa</h3>
+                            <p class="text-sm text-text-gray">Veja nossa paleta de cores para inspiração</p>
+                        </div>
+                    </div>
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <!-- Search and filters card -->
+            <div class="bg-white rounded-2xl shadow-md p-4 space-y-4">
+                <!-- Search bar -->
+                <div>
+                    <label class="block text-sm font-semibold text-text-dark mb-2">Pesquisar:</label>
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="Digite o nome do item..." 
+                            class="w-full px-4 py-2.5 pr-10 rounded-lg border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
+                            onkeyup="applyFilters()"
+                        >
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Divider -->
+                <div class="border-t border-gray-200"></div>
+                
+                <!-- Price range filters -->
+                <div>
+                    <label class="block text-sm font-semibold text-text-dark mb-2">Faixa de preço:</label>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterByPrice('all')" 
+                                class="filter-btn px-4 py-2 rounded-full text-sm font-medium transition border-2 border-primary text-primary bg-primary bg-opacity-10" 
+                                data-filter="all">
+                            Todos
+                        </button>
+                        <button onclick="filterByPrice(50)" 
+                                class="filter-btn px-4 py-2 rounded-full text-sm font-medium transition border-2 border-gray-300 text-text-gray hover:border-primary hover:text-primary" 
+                                data-filter="50">
+                            Até R$ 50
+                        </button>
+                        <button onclick="filterByPrice(100)" 
+                                class="filter-btn px-4 py-2 rounded-full text-sm font-medium transition border-2 border-gray-300 text-text-gray hover:border-primary hover:text-primary" 
+                                data-filter="100">
+                            Até R$ 100
+                        </button>
+                        <button onclick="filterByPrice(150)" 
+                                class="filter-btn px-4 py-2 rounded-full text-sm font-medium transition border-2 border-gray-300 text-text-gray hover:border-primary hover:text-primary" 
+                                data-filter="150">
+                            Até R$ 150
+                        </button>
+                        <button onclick="filterByPrice(999)" 
+                                class="filter-btn px-4 py-2 rounded-full text-sm font-medium transition border-2 border-gray-300 text-text-gray hover:border-primary hover:text-primary" 
+                                data-filter="999">
+                            R$ 150+
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gift items -->
+        <div id="itemsList" class="space-y-4">
+            {% for item in items %}
+            <div class="item-card bg-white rounded-2xl shadow-md overflow-hidden transition duration-200" 
+                 data-price="{{ item['price_estimate'] or 0 }}" 
+                 data-name="{{ item['name'].lower() }}" 
+                 data-category="{{ item['category'].lower() }}">
+                {% if item['status'] == 'available' %}
+                    <a href="{{ url_for('item_details', item_id=item['id']) }}" class="block p-5 hover:shadow-lg transition duration-200 cursor-pointer">
+                        <div class="flex items-start gap-4">
+                            <!-- Icon/Image placeholder -->
+                            <div class="flex-shrink-0 w-16 h-16 bg-secondary bg-opacity-30 rounded-xl flex items-center justify-center overflow-hidden">
+                                {% if item['image_url'] %}
+                                    <img src="{{ item['image_url'] }}" alt="{{ item['name'] }}" class="w-full h-full object-cover">
+                                {% else %}
+                                    {% if item['category'] == 'Cozinha' %}
+                                        <span class="text-2xl">🍳</span>
+                                    {% elif item['category'] == 'Quarto' %}
+                                        <span class="text-2xl">🛏️</span>
+                                    {% elif item['category'] == 'Limpeza' %}
+                                        <span class="text-2xl">🧹</span>
+                                    {% elif item['category'] == 'Banheiro' %}
+                                        <span class="text-2xl">🚿</span>
+                                    {% elif item['category'] == 'Lavanderia' %}
+                                        <span class="text-2xl">🧺</span>
+                                    {% else %}
+                                        <span class="text-2xl">🛋️</span>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Item details -->
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start gap-2 mb-1">
+                                    <h3 class="font-semibold text-text-dark text-base">
+                                        {{ item['name'] }}
+                                    </h3>
+                                    {% if item['price_estimate'] %}
+                                    <span class="text-primary font-semibold text-sm whitespace-nowrap">
+                                        ~R$ {{ item['price_estimate'] }}
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                <p class="text-sm text-text-gray mb-2">
+                                    {{ item['category'] }}
+                                </p>
+                                
+                                {% if item['notes'] %}
+                                <p class="text-sm text-text-gray mb-3 line-clamp-2">
+                                    {{ item['notes'][:80] }}{% if item['notes']|length > 80 %}...{% endif %}
+                                </p>
+                                {% endif %}
+                                
+                                <!-- Status badge -->
+                                <div class="flex items-center gap-2 mt-3">
+                                    <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-badge-green text-white">
+                                        Disponível
+                                    </span>
+                                    <span class="text-xs text-text-gray italic">Clique para ver detalhes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% else %}
+                    <div class="block p-5 opacity-60">
+                        <div class="flex items-start gap-4">
+                            <!-- Icon/Image placeholder -->
+                            <div class="flex-shrink-0 w-16 h-16 bg-secondary bg-opacity-30 rounded-xl flex items-center justify-center overflow-hidden">
+                                {% if item['image_url'] %}
+                                    <img src="{{ item['image_url'] }}" alt="{{ item['name'] }}" class="w-full h-full object-cover">
+                                {% else %}
+                                    {% if item['category'] == 'Cozinha' %}
+                                        <span class="text-2xl">🍳</span>
+                                    {% elif item['category'] == 'Quarto' %}
+                                        <span class="text-2xl">🛏️</span>
+                                    {% elif item['category'] == 'Limpeza' %}
+                                        <span class="text-2xl">🧹</span>
+                                    {% elif item['category'] == 'Banheiro' %}
+                                        <span class="text-2xl">🚿</span>
+                                    {% elif item['category'] == 'Lavanderia' %}
+                                        <span class="text-2xl">🧺</span>
+                                    {% else %}
+                                        <span class="text-2xl">🛋️</span>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Item details -->
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start gap-2 mb-1">
+                                    <h3 class="font-semibold text-text-dark text-base">
+                                        {{ item['name'] }}
+                                    </h3>
+                                    {% if item['price_estimate'] %}
+                                    <span class="text-primary font-semibold text-sm whitespace-nowrap">
+                                        ~R$ {{ item['price_estimate'] }}
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                <p class="text-sm text-text-gray mb-2">
+                                    {{ item['category'] }}
+                                </p>
+                                
+                                {% if item['notes'] %}
+                                <p class="text-sm text-text-gray mb-3 line-clamp-2">
+                                    {{ item['notes'][:80] }}{% if item['notes']|length > 80 %}...{% endif %}
+                                </p>
+                                {% endif %}
+                                
+                                <!-- Status badge -->
+                                <div class="flex items-center gap-2 mt-3">
+                                    <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-badge-gray text-white">
+                                        Já escolhido
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+            {% if not items %}
+            <div class="text-center py-12 bg-white rounded-2xl">
+                <p class="text-text-gray text-lg">Nenhum item disponível no momento.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Empty state for filtered results -->
+        <div id="noResults" class="hidden text-center py-12 bg-white rounded-2xl">
+            <span class="text-4xl mb-4 block">🔍</span>
+            <p class="text-text-gray text-lg mb-2 font-semibold">Nenhum item encontrado</p>
+            <p class="text-text-gray text-sm">Tente ajustar os filtros ou a pesquisa!</p>
+            <button onclick="clearAllFilters()" class="mt-4 px-6 py-2 bg-primary text-white rounded-full hover:bg-primary-dark transition text-sm font-medium">
+                Limpar filtros
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentFilter = 'all';
+    
+    function filterByPrice(maxPrice) {
+        currentFilter = maxPrice;
+        
+        // Update button styles
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('border-primary', 'text-primary', 'bg-primary', 'bg-opacity-10');
+            btn.classList.add('border-gray-300', 'text-text-gray');
+        });
+        
+        const activeBtn = document.querySelector(`[data-filter="${maxPrice}"]`);
+        if (activeBtn) {
+            activeBtn.classList.remove('border-gray-300', 'text-text-gray');
+            activeBtn.classList.add('border-primary', 'text-primary', 'bg-primary', 'bg-opacity-10');
+        }
+        
+        // Apply all filters
+        applyFilters();
+    }
+    
+    function applyFilters() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase().trim();
+        const items = document.querySelectorAll('.item-card');
+        const noResults = document.getElementById('noResults');
+        let visibleCount = 0;
+        
+        items.forEach(item => {
+            const name = item.dataset.name;
+            const category = item.dataset.category;
+            const price = parseInt(item.dataset.price) || 0;
+            
+            // Check search filter
+            let matchesSearch = true;
+            if (searchInput) {
+                matchesSearch = name.includes(searchInput) || category.includes(searchInput);
+            }
+            
+            // Check price filter
+            let matchesPrice = true;
+            if (currentFilter === 'all') {
+                matchesPrice = true;
+            } else if (currentFilter === 999) {
+                matchesPrice = price > 150;
+            } else {
+                matchesPrice = price > 0 && price <= currentFilter;
+            }
+            
+            // Show item only if it matches both filters
+            if (matchesSearch && matchesPrice) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        // Show/hide no results message
+        if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+        } else {
+            noResults.classList.add('hidden');
+        }
+    }
+    
+    function clearAllFilters() {
+        // Clear search input
+        document.getElementById('searchInput').value = '';
+        
+        // Reset price filter to "all"
+        filterByPrice('all');
+    }
+</script>
+{% endblock %}

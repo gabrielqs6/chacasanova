@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Nossa Paleta de Cores - Chá de Casa Nova{% endblock %}
+
+{% block content %}
+<div class="min-h-screen py-6 px-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <a href="{{ url_for('gift_list') }}" class="inline-flex items-center text-primary mb-4 hover:text-primary-dark">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Voltar
+            </a>
+            <h1 class="text-2xl md:text-3xl font-bold text-text-dark mb-3">
+                Paleta de Cores 
+            </h1>
+            
+            <!-- Aviso sobre modo claro -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-3 mb-4 max-w-2xl mx-auto">
+                <p class="text-yellow-800 text-xs md:text-sm flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    Ative o modo claro do seu celular para evitar distorções nas cores.
+                </p>
+            </div>
+            
+            <!-- Friendly intro text -->
+            <div class="bg-white rounded-2xl shadow-md p-5 mb-6 max-w-2xl mx-auto">
+                <p class="text-text-gray text-sm md:text-base leading-relaxed">
+                    Se você quer nos presentear com algo diferente da lista, aqui está a <strong>paleta de cores</strong> para te ajudar a escolher!
+                </p>
+            </div>
+        </div>
+        
+        <!-- Home Color Palette -->
+        <div class="bg-white rounded-2xl shadow-md p-6">
+            <div class="flex items-center gap-3 mb-5">
+                <span class="text-3xl">🏡</span>
+                <div>
+                    <h2 class="text-xl font-bold text-text-dark">Casa</h2>
+                    <p class="text-sm text-text-gray">Tons neutros</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Color 1: Preto -->
+                <div class="group">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+                        <div class="h-32 flex items-center justify-center" style="background-color: #000000;">
+                            <span class="text-white text-2xl opacity-0 group-hover:opacity-100 transition">✓</span>
+                        </div>
+                        <div class="p-3 text-center bg-white">
+                            <p class="font-mono text-sm font-semibold text-text-dark">#000000</p>
+                            <p class="text-xs text-text-gray mt-1">Preto</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Color 2: Cinza Escuro -->
+                <div class="group">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+                        <div class="h-32 flex items-center justify-center" style="background-color: #333333;">
+                            <span class="text-white text-2xl opacity-0 group-hover:opacity-100 transition">✓</span>
+                        </div>
+                        <div class="p-3 text-center bg-white">
+                            <p class="font-mono text-sm font-semibold text-text-dark">#333333</p>
+                            <p class="text-xs text-text-gray mt-1">Cinza Escuro</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Color 3: Cinza Médio -->
+                <div class="group">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+                        <div class="h-32 flex items-center justify-center" style="background-color: #777777;">
+                            <span class="text-white text-2xl opacity-0 group-hover:opacity-100 transition">✓</span>
+                        </div>
+                        <div class="p-3 text-center bg-white">
+                            <p class="font-mono text-sm font-semibold text-text-dark">#777777</p>
+                            <p class="text-xs text-text-gray mt-1">Cinza Médio</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Color 4: Marrom -->
+                <div class="group">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+                        <div class="h-32 flex items-center justify-center" style="background-color: #6B4E3C;">
+                            <span class="text-white text-2xl opacity-0 group-hover:opacity-100 transition">✓</span>
+                        </div>
+                        <div class="p-3 text-center bg-white">
+                            <p class="font-mono text-sm font-semibold text-text-dark">#6B4E3C</p>
+                            <p class="text-xs text-text-gray mt-1">Marrom</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Color 5: Bege Acastanhado -->
+                <div class="group">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+                        <div class="h-32 flex items-center justify-center" style="background-color: #A07A5E;">
+                            <span class="text-white text-2xl opacity-0 group-hover:opacity-100 transition">✓</span>
+                        </div>
+                        <div class="p-3 text-center bg-white">
+                            <p class="font-mono text-sm font-semibold text-text-dark">#A07A5E</p>
+                            <p class="text-xs text-text-gray mt-1">Bege Acastanhado</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Color 6: Off-White -->
+                <div class="group">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+                        <div class="h-32 flex items-center justify-center border border-gray-200" style="background-color: #F7F7F7;">
+                            <span class="text-gray-600 text-2xl opacity-0 group-hover:opacity-100 transition">✓</span>
+                        </div>
+                        <div class="p-3 text-center bg-white">
+                            <p class="font-mono text-sm font-semibold text-text-dark">#F7F7F7</p>
+                            <p class="text-xs text-text-gray mt-1">Off-White</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-5 bg-gray-50 rounded-xl p-4">
+                <p class="text-sm text-text-gray">
+                    <strong>Dica:</strong> Os eletrodomésticos em preto ou cinza, mas também gostamos de utensílios de madeira!
+                </p>
+            </div>
+        </div>
+        
+        <!-- Bottom CTA -->
+        <div class="mt-8 text-center">
+            <div class="bg-white rounded-2xl shadow-md p-6 border-2 border-secondary border-opacity-30">
+                <p class="text-text-gray text-sm md:text-base mb-4 leading-relaxed">
+                    A paleta é apenas para te ajudar a escolher, fique a vontade para nos presentear com o que seu coração mandar.
+                </p>
+                <a href="{{ url_for('gift_list') }}" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition duration-200">
+                    Voltar para sugestões
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

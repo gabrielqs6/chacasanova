@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Já Temos 💚{% endblock %}
+
+{% block content %}
+<div class="min-h-screen py-6 px-4">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <a href="{{ url_for('gift_list') }}" class="inline-flex items-center text-primary mb-4 hover:text-primary-dark">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Voltar para lista
+            </a>
+            <h1 class="text-2xl md:text-3xl font-bold text-text-dark mb-2">
+                Já Temos 💚
+            </h1>
+            <p class="text-text-gray">
+                Itens que já foram adquiridos pelo casal
+            </p>
+        </div>
+        
+        <!-- Owned items -->
+        <div class="space-y-4">
+            {% for item in items %}
+            <div class="bg-white bg-opacity-60 rounded-2xl shadow-md overflow-hidden">
+                <div class="p-5">
+                    <div class="flex items-start gap-4">
+                        <!-- Icon/Image placeholder - muted -->
+                        <div class="flex-shrink-0 w-16 h-16 bg-gray-200 rounded-xl flex items-center justify-center opacity-60">
+                            {% if item['category'] == 'Cozinha' %}
+                                <span class="text-2xl">🍳</span>
+                            {% elif item['category'] == 'Quarto' %}
+                                <span class="text-2xl">🛏️</span>
+                            {% elif item['category'] == 'Limpeza' %}
+                                <span class="text-2xl">🧹</span>
+                            {% elif item['category'] == 'Banheiro' %}
+                                <span class="text-2xl">🚿</span>
+                            {% elif item['category'] == 'Lavanderia' %}
+                                <span class="text-2xl">🧺</span>
+                            {% else %}
+                                <span class="text-2xl">🛋️</span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Item details -->
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-semibold text-text-dark text-base mb-1">
+                                {{ item['name'] }}
+                            </h3>
+                            <p class="text-sm text-text-gray mb-2">
+                                Categoria: <span class="font-medium">{{ item['category'] }}</span>
+                            </p>
+                            
+                            <!-- Status badge -->
+                            <div class="flex items-center gap-3 mt-3">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary text-white">
+                                    Já temos 💚
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+            {% if not items %}
+            <div class="text-center py-12">
+                <p class="text-text-gray text-lg">Nenhum item marcado como "Já temos" ainda.</p>
+                <a href="{{ url_for('gift_list') }}" class="inline-block mt-4 text-primary hover:text-primary-dark font-medium">
+                    Ver lista de presentes disponíveis
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

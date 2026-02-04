@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Presente Reservado com Sucesso!{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-4 py-8">
+    <div class="max-w-md w-full text-center">
+        <!-- Success icon -->
+        <div class="mb-8 flex justify-center">
+            <div class="bg-primary bg-opacity-10 rounded-full p-6">
+                <svg class="w-24 h-24 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Success message -->
+        <h1 class="text-3xl md:text-4xl font-bold text-text-dark mb-4">
+            Presente reservado<br>com sucesso!
+        </h1>
+        
+        <!-- Thank you message -->
+        <div class="bg-white rounded-2xl shadow-md p-6 mb-8">
+            <p class="text-text-gray text-base leading-relaxed mb-4">
+                Muito obrigado! Te esperamos na nossa casinha pra comemorar essa etapa da nossa vida. 💚
+            </p>
+            <p class="text-sm text-text-gray italic">
+                Seu presente: <strong class="text-primary">{{ item['name'] }}</strong>
+            </p>
+        </div>
+        
+        <!-- Back to list button -->
+        <a href="{{ url_for('gift_list') }}" class="inline-block w-full bg-primary hover:bg-primary-dark text-white font-semibold py-4 px-8 rounded-full shadow-lg transition duration-200 mb-4">
+            Voltar para a lista
+        </a>
+        
+        <!-- Back to home -->
+        <a href="{{ url_for('home') }}" class="inline-block text-primary hover:text-primary-dark font-medium">
+            Ir para o início
+        </a>
+    </div>
+</div>
+{% endblock %}

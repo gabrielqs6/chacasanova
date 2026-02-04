@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="light" style="color-scheme: light;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light only">
+    <meta name="theme-color" content="#F3F4F6">
+    <meta name="theme-color" content="#F3F4F6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#F3F4F6" media="(prefers-color-scheme: dark)">
+    <!-- Meta tags específicas para Samsung Internet -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="light">
+    <title>{% block title %}Chá de Casa Nova - Gabriel Queiroz{% endblock %}</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: false, // Desabilita completamente o modo escuro
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#DC2626',
+                        'primary-dark': '#B91C1C',
+                        secondary: '#6B7280',
+                        neutral: '#F3F4F6',
+                        'neutral-dark': '#1F2937',
+                        'card-bg': '#FFFFFF',
+                        'text-dark': '#000000',
+                        'text-gray': '#4B5563',
+                        'badge-green': '#DC2626',
+                        'badge-gray': '#9CA3AF',
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            color-scheme: light only !important;
+            background-color: #F3F4F6 !important;
+        }
+        
+        html {
+            color-scheme: light !important;
+            background-color: #F3F4F6 !important;
+        }
+        
+        html, body {
+            font-family: 'Poppins', sans-serif;
+            color-scheme: light !important;
+            background-color: #F3F4F6 !important;
+            color: #000000 !important;
+        }
+        
+        body * {
+            color-scheme: light !important;
+        }
+        
+        /* Força todas as cores de fundo e texto mesmo em dark mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                color-scheme: light only !important;
+                background-color: #F3F4F6 !important;
+            }
+            
+            html {
+                color-scheme: light !important;
+                background-color: #F3F4F6 !important;
+            }
+            
+            html, body {
+                background-color: #F3F4F6 !important;
+                color: #000000 !important;
+            }
+            
+            body * {
+                color-scheme: light !important;
+            }
+        }
+        
+        /* Samsung Internet específico */
+        @supports (-webkit-appearance: none) {
+            html {
+                color-scheme: light !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-neutral-dark min-h-screen" style="background-color: #F3F4F6 !important; color: #000000 !important;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-11/12 max-w-md">
+                {% for category, message in messages %}
+                    <div class="bg-white border-l-4 {% if category == 'error' %}border-red-500{% else %}border-green-500{% endif %} p-4 rounded-lg shadow-lg mb-2">
+                        <p class="text-sm text-text-dark">{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    {% block content %}{% endblock %}
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>
