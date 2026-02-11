@@ -21,7 +21,8 @@ else:
     USE_POSTGRES = False
     # Use absolute path to ensure database is saved in the project directory
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DATABASE = os.path.join(BASE_DIR, 'casa_nova.db')
+    DATABASE = '/data/casa_nova.db'
+
 
 def get_db():
     """Connect to the database."""
